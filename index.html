@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Video Editor with Veo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* --- Fallback styles for robustness --- */
+      body {
+        background-color: #111827; /* Fallback for Tailwind bg-gray-900 */
+        color: #f3f4f6; /* Fallback for Tailwind text-gray-100 */
+        margin: 0;
+      }
+      /* Ensure the static skeleton container has full height */
+      #root > div:first-child {
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      /* Custom scrollbar for timeline */
+      .timeline-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .timeline-scrollbar::-webkit-scrollbar-track {
+        background: #1f2937; /* gray-800 */
+        border-radius: 10px;
+      }
+      .timeline-scrollbar::-webkit-scrollbar-thumb {
+        background: #4b5563; /* gray-600 */
+        border-radius: 10px;
+      }
+      .timeline-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #6b7280; /* gray-500 */
+      }
+      
+      .max-h-screen-half {
+        max-height: 50vh;
+      }
+
+      /* --- Pre-render styles for static skeleton --- */
+      @keyframes pulse {
+        50% { opacity: .5; }
+      }
+      /* This ensures the animation is defined before React loads */
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      /* Basic skeleton colors to avoid flash of unstyled content */
+      #root .bg-gray-700\/50,
+      #root .bg-gray-800,
+      #root .bg-gray-700 {
+        background-color: #374151 !important;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900 text-gray-100">
+    <div id="root">
+      <!-- Static Skeleton Loader -->
+      <div class="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center p-2 sm:p-4 lg:p-8 font-sans">
+          <header class="w-full max-w-7xl flex justify-between items-center mb-6 animate-pulse">
+              <div class="h-8 sm:h-10 w-48 sm:w-64 bg-gray-700/50 rounded-md"></div>
+              <div class="w-8 h-8 bg-gray-700/50 rounded-full"></div>
+          </header>
+          <main class="w-full max-w-7xl flex-grow">
+              <div class="space-y-6 animate-pulse">
+                  <div class="flex flex-col items-center justify-center w-full h-56 sm:h-64 border-2 border-dashed border-gray-700 rounded-lg bg-gray-800">
+                      <div class="w-12 h-12 bg-gray-700 rounded-lg mb-4"></div>
+                      <div class="h-6 w-48 bg-gray-700 rounded-md mb-2"></div>
+                      <div class="h-4 w-32 bg-gray-700 rounded-md"></div>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div>
+                          <div class="h-6 w-40 bg-gray-700 rounded-md mb-2"></div>
+                          <div class="w-full aspect-video bg-gray-800 rounded-lg"></div>
+                      </div>
+                      <div class="bg-gray-800 p-4 rounded-lg flex flex-col justify-center space-y-4">
+                           <div class="h-6 w-32 bg-gray-700 rounded-md"></div>
+                           <div class="h-4 w-full bg-gray-700 rounded-md"></div>
+                           <div class="w-full h-24 bg-gray-700 rounded-md"></div>
+                           <div class="h-10 w-full bg-gray-700 rounded-lg"></div>
+                      </div>
+                  </div>
+      
+                  <div>
+                      <div class="h-6 w-32 bg-gray-700 rounded-md mb-2"></div>
+                       <div class="bg-gray-800 p-2 rounded-lg">
+                          <div class="flex space-x-2 overflow-hidden pb-2">
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                              <div class="flex-shrink-0 text-center"><div class="w-28 h-16 sm:w-32 sm:h-20 bg-gray-700 rounded-md"></div><div class="h-3 w-8 bg-gray-700 rounded-md mt-1 mx-auto"></div></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </main>
+      </div>
+    </div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

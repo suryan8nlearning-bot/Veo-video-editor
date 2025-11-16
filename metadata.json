@@ -1,0 +1,5 @@
+{
+  "name": "Copy of AI Video Editor with Veo",
+  "description": "An advanced video editor that uses Veo 3 to modify segments of a video. Users can upload a video, select a timeframe, provide a text prompt and an optional image to generate a new video segment, preview the result, and download it.",
+  "requestFramePermissions": []
+}
